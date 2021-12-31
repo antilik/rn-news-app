@@ -19,8 +19,8 @@ export default function App() {
   if (font) {
     return (
       <SafeAreaView style={gStyle.main}>
-        <StatusBar style="auto" />
-        <MainStack />
+        <StatusBar style="auto"/>
+        <MainStack/>
       </SafeAreaView>
     );
   } else {
