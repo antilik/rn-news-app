@@ -1,5 +1,12 @@
+# deps
 node_modules/
+package-lock.json
 .expo/
+
+# ide
+.vscode
+
+# other
 dist/
 npm-debug.*
 *.jks
