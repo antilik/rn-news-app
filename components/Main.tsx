@@ -7,17 +7,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from "../navigate";
 import { newsCollection } from "./newsCollection";
 import ImageItem from "./ImageItem";
+import Form from './Form';
 
 import { gStyle } from '../styles/styles';
 
 type contactsScreenProp = StackNavigationProp<RootStackParamList, "FullInfo">
 
-export interface INewsItem {
-  key: string;
+export interface INewsItemShort {
   name: string;
   anons: string;
   full: string;
   img: string;
+}
+
+export interface INewsItem extends INewsItemShort {
+  key: string;
 }
 
 type TNewsList = Array<INewsItem>;
@@ -27,6 +31,13 @@ export default function Main() {
 
   const [news, setNews] = useState<TNewsList>(newsCollection);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+  const addArticle = (article: INewsItemShort) => {
+    setNews(oldNews => (
+      [{key: Date.now().toString(), ...article }, ...oldNews]
+    ));
+    setIsOpenModal(false);
+  }
 
   const renderNews = ({ item }: { item: INewsItem }) => {
     return (
@@ -48,6 +59,13 @@ export default function Main() {
       <Text
         style={[gStyle.title, gStyle.header]}
       >Main Page</Text>
+      <Ionicons
+        name='add-circle'
+        size={34}
+        color='gray'
+        style={styles.iconAdd}
+        onPress={() => setIsOpenModal(true)}
+      />
       <Modal
         style={styles.modalWindow}
         visible={isOpenModal}
@@ -63,15 +81,9 @@ export default function Main() {
           <Text style={[gStyle.titleH3]}>
             Add an article
           </Text>
+          <Form addArticle={addArticle} />
         </View>
       </Modal>
-      <Ionicons
-        name='add-circle'
-        size={34}
-        color='gray'
-        style={styles.iconAdd}
-        onPress={() => setIsOpenModal(true)}
-      />
       <FlatList
         data={news}
         renderItem={renderNews}
@@ -85,14 +97,13 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   iconAdd: {
-    textAlign: 'left',
-    position: 'absolute',
-    top: 30,
-    left: 5,
+    textAlign: 'right',
+    marginBottom: 10,
   },
   iconClose: {
     textAlign: 'right',
     marginTop: 10,
-    marginRight: 10,
+    paddingTop: 10,
+    paddingRight: 10,
   }
 })

@@ -4,9 +4,10 @@ export const gStyle = StyleSheet.create({
   main: {
     flex: 1,
     padding: 20,
+    marginTop: 5
   },
   header: {
-    marginBottom: 30,
+    marginBottom: 10,
   },
   title: {
     fontSize: 20,
@@ -18,7 +19,7 @@ export const gStyle = StyleSheet.create({
     fontFamily: 'SourceSansPro-bold',
     fontSize: 22,
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: 0,
     color: '#474747'
   },
   newsItem: {

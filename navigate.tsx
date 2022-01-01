@@ -1,10 +1,8 @@
-import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import Main, { INewsItem } from './components/Main';
 import FullInfo from "./components/FullInfo";
-
 
 export type RootStackParamList = {
   Main: undefined;

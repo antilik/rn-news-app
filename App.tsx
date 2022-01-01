@@ -8,15 +8,16 @@ import MainStack from './navigate';
 
 import { gStyle } from './styles/styles';
 
-const fonts = () =>
+const getFonts = () =>
   Font.loadAsync({
     'SourceSansPro-bold': require('./assets/fonts/SourceSansPro-Bold.ttf'),
     'SourceSansPro-light': require('./assets/fonts/SourceSansPro-Light.ttf'),
   });
 
 export default function App() {
-  const [font, setFont] = useState(false);
-  if (font) {
+  const [isFontsLoaded, setFontsLoaded] = useState<boolean>(false);
+
+  if (isFontsLoaded) {
     return (
       <SafeAreaView style={gStyle.main}>
         <StatusBar style="auto"/>
@@ -26,12 +27,10 @@ export default function App() {
   } else {
     return (
       <AppLoading
-        startAsync={fonts}
-        onFinish={() => setFont(true)}
+        startAsync={getFonts}
+        onFinish={() => setFontsLoaded(true)}
         onError={console.warn}
       />
     );
   }
 }
-
-// const styles = StyleSheet.create({});
