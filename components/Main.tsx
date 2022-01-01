@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Ionicons } from '@expo/vector-icons';
 
 import { RootStackParamList } from "../navigate";
 import { newsCollection } from "./newsCollection";
@@ -25,6 +26,7 @@ export default function Main() {
   const navigation = useNavigation<contactsScreenProp>();
 
   const [news, setNews] = useState<TNewsList>(newsCollection);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const renderNews = ({ item }: { item: INewsItem }) => {
     return (
@@ -46,6 +48,30 @@ export default function Main() {
       <Text
         style={[gStyle.title, gStyle.header]}
       >Main Page</Text>
+      <Modal
+        style={styles.modalWindow}
+        visible={isOpenModal}
+      >
+        <Ionicons
+          name='close-circle'
+          size={34}
+          color='red'
+          style={styles.iconClose}
+          onPress={() => setIsOpenModal(false)}
+        />
+        <View style={gStyle.main}>
+          <Text style={[gStyle.titleH3]}>
+            Add an article
+          </Text>
+        </View>
+      </Modal>
+      <Ionicons
+        name='add-circle'
+        size={34}
+        color='gray'
+        style={styles.iconAdd}
+        onPress={() => setIsOpenModal(true)}
+      />
       <FlatList
         data={news}
         renderItem={renderNews}
@@ -53,3 +79,20 @@ export default function Main() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalWindow: {
+    marginTop: 100,
+  },
+  iconAdd: {
+    textAlign: 'left',
+    position: 'absolute',
+    top: 30,
+    left: 5,
+  },
+  iconClose: {
+    textAlign: 'right',
+    marginTop: 10,
+    marginRight: 10,
+  }
+})
